@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pytest_cache/
+
+# Environments
+.venv/
+.env
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Data and artifacts
+/data/
+!/data/README.md
+*.keras
+*.h5
+*.hdf5
+*.ckpt*
+*.tflite
+*.onnx
+confusion_matrix.png
+
+# Logs
+logs/
+*.log
