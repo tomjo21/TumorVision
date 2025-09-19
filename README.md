@@ -36,6 +36,28 @@ python predict.py data\dataset\Testing\glioma\Te-gl_0010.jpg
 python src\evaluate.py
 ```
 
+## Patient-wise splits (prevent leakage)
+Create splits that keep all images from a patient in a single set:
+
+```powershell
+# Option A: regex to extract patient id from filename (use a capturing group)
+python src\build_patient_splits.py --regex "^(Te-[a-z]+)_"
+
+# Option B: provide a CSV mapping (image_path,patient_id) relative to data/dataset
+python src\build_patient_splits.py --csv_map data\patient_map.csv
+```
+
+This writes `data/splits/train.txt`, `val.txt`, `test.txt`. When these exist, `src/dataset.py` will load from them automatically.
+
+## Clean duplicates
+Detect near-duplicate images to reduce label noise:
+
+```powershell
+python src\clean_duplicates.py data\dataset --threshold 5 --quarantine data\dupe_quarantine
+```
+
+Review the quarantine before deleting. Adjust `--threshold` (lower = stricter).
+
 ## Notes
 - Data directory is ignored by Git; add your own images locally.
 - Best model checkpoint is `brain_tumor_model.keras`.
